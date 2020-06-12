@@ -1,0 +1,5 @@
+{
+  "DB": {
+    "URI": "mongodb+srv://keyboard-store:JQw7NDdkjRIsjK52@mycluster-qmk1l.mongodb.net/<dbname>?retryWrites=true&w=majority"
+  }
+}
