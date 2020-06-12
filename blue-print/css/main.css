@@ -7503,6 +7503,10 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   .form-container h3 {
     color: #ffa41b; }
 
+.keyboard-form {
+  padding-top: 0;
+  padding-bottom: 10rem; }
+
 .about {
   background-color: #ffa41b;
   color: white;
