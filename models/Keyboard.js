@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const KeyboardSchema = Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+  },
   name: {
     type: String,
     required: true,
@@ -21,7 +25,7 @@ const KeyboardSchema = Schema({
     type: Boolean,
     required: true,
   },
-  featuredIten: {
+  featuredItem: {
     type: Boolean,
     default: false,
     required: true,
@@ -32,4 +36,4 @@ const KeyboardSchema = Schema({
   },
 });
 
-module.exports = mongoose.model('keyboard', KeyboardSchema);
+module.exports = mongoose.model('Keyboard', KeyboardSchema, 'keyboards');

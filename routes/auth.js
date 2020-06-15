@@ -59,7 +59,7 @@ router.post(
       );
     } catch (err) {
       console.log(err);
-      res.status(500).send('Server Error');
+      res.status(500).send({ error: err.message });
     }
   }
 );
@@ -128,7 +128,7 @@ router.post(
       );
     } catch (err) {
       console.log(err);
-      res.status(500).send('Server Error');
+      res.status(500).send({ error: err.message });
     }
   }
 );

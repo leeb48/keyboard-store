@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Keyboard = require('./Keyboard');
 const Schema = mongoose.Schema;
 
 const UserSchema = Schema({
@@ -14,7 +15,7 @@ const UserSchema = Schema({
   cart: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'keyboard',
+      ref: Keyboard,
     },
   ],
 
@@ -24,4 +25,4 @@ const UserSchema = Schema({
   },
 });
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model('User', UserSchema, 'users');
