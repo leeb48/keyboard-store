@@ -92,7 +92,13 @@ router.post(
       let user = await User.findOne({ username });
 
       if (user) {
-        return res.status(500).json({ error: 'Username Already Exists' });
+        return res.status(400).json({
+          errors: [
+            {
+              msg: 'Username Already Exists',
+            },
+          ],
+        });
       }
 
       //  Encrypt password
@@ -127,7 +133,7 @@ router.post(
         }
       );
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
       res.status(500).send({ error: err.message });
     }
   }
