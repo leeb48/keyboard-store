@@ -7,13 +7,13 @@ import Navbar from './components/layout/Navbar';
 import ProductDisplay from './components/product-display/ProductDisplay';
 import Register from './components/forms/Register';
 import Alert from './components/alerts/Alert';
+import Login from './components/forms/Login';
 
 function App() {
   return (
     <Fragment>
       <Router>
         <Navbar />
-        <Alert />
         <Switch>
           <Route
             exact
@@ -42,7 +42,9 @@ function App() {
             )}
           />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
         </Switch>
+        <Alert />
       </Router>
     </Fragment>
   );

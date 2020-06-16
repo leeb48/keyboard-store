@@ -1,4 +1,9 @@
-import { REGISTER_FAIL, REGISTER_SUCCESS } from '../actions/types';
+import {
+  REGISTER_FAIL,
+  REGISTER_SUCCESS,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+} from '../actions/types';
 
 const initialState = {
   username: null,
@@ -6,6 +11,7 @@ const initialState = {
   token: localStorage.getItem('token'),
   cart: [],
   loading: true,
+  isAuthenticated: false,
 };
 
 export default function (state = initialState, action) {
@@ -13,9 +19,22 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case REGISTER_SUCCESS:
+    case LOGIN_SUCCESS:
+      localStorage.setItem('token', payload.token);
       return {
         ...state,
-        payload,
+        ...payload,
+        isAuthenticated: true,
+        loading: false,
+      };
+
+    case REGISTER_FAIL:
+    case LOGIN_FAIL:
+      localStorage.setItem('token', null);
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
         loading: false,
       };
 

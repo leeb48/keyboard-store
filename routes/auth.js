@@ -30,14 +30,22 @@ router.post(
       let user = await User.findOne({ username });
 
       if (!user) {
-        return res.status(404).json({ error: 'User Not Found' });
+        return res.status(400).json({
+          errors: [
+            {
+              msg: 'Invalid Credentials',
+            },
+          ],
+        });
       }
 
       //  Compare the passwords
       const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (!passwordMatch) {
-        return res.status(500).json({ error: 'Invalid Credentials' });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: 'Invalid Credentials' }] });
       }
 
       //  Send token
@@ -51,7 +59,7 @@ router.post(
         { expiresIn: '1h' },
         (err, token) => {
           if (err) {
-            return res.status(500).json({ error: err.message });
+            return res.status(500).json({ errors: [{ msg: err.message }] });
           }
 
           return res.json({ token });
@@ -129,7 +137,7 @@ router.post(
             return res.status(500).json({ error: err.message });
           }
 
-          return res.json({ token });
+          return res.json({ token, username, favoriteSwitchType });
         }
       );
     } catch (err) {

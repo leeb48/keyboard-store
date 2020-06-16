@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Navbar = () => {
+const Navbar = ({ user: { isAuthenticated } }) => {
   return (
     <Fragment>
       <section className="hero is-primary">
@@ -56,20 +58,28 @@ const Navbar = () => {
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                <Link className="button is-info" to="/cart">
-                  <i
-                    className="fas fa-shopping-cart"
-                    style={{ marginRight: '.5rem' }}
-                  ></i>
-                  Cart
-                </Link>
-                <Link className="button is-primary" to="/register">
-                  <strong>Sign up</strong>
-                </Link>
-                <Link className="button is-link" to="/login">
-                  Log in
-                </Link>
-                <a className="button is-danger">Log Out</a>
+                {isAuthenticated ? (
+                  <Fragment>
+                    <Link className="button is-info" to="/cart">
+                      <i
+                        className="fas fa-shopping-cart"
+                        style={{ marginRight: '.5rem' }}
+                      ></i>
+                      Cart
+                    </Link>
+
+                    <a className="button is-danger">Log Out</a>
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <Link className="button is-primary" to="/register">
+                      <strong>Sign up</strong>
+                    </Link>
+                    <Link className="button is-link" to="/login">
+                      Log in
+                    </Link>
+                  </Fragment>
+                )}
               </div>
             </div>
           </div>
@@ -79,4 +89,12 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+Navbar.propTypes = {
+  user: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(Navbar);

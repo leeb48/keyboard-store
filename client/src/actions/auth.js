@@ -3,9 +3,8 @@ import axios from 'axios';
 import { setAlert } from './alert';
 
 // Register new user
-export const registerUser = (formData) => async (dispatch) => {
+export const registerUser = (formData, history) => async (dispatch) => {
   try {
-    console.log(formData);
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -18,8 +17,14 @@ export const registerUser = (formData) => async (dispatch) => {
       payload: response.data,
     });
 
-    setAlert('Register Successful', 'success');
+    dispatch(setAlert('Register Successful', 'success'));
+
+    history.push('/');
   } catch (err) {
+    dispatch({
+      type: REGISTER_FAIL,
+    });
+
     const errors = err.response.data.errors;
 
     if (errors) {
