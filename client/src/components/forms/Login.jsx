@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loginUser } from '../../actions/user';
+import { loginUser } from '../../actions/auth';
 
 const Login = ({ loginUser, history }) => {
   const [formData, setFormData] = useState({

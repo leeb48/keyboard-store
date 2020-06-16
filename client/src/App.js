@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
@@ -9,7 +9,18 @@ import Register from './components/forms/Register';
 import Alert from './components/alerts/Alert';
 import Login from './components/forms/Login';
 
+// UTILITY
+import store from './store';
+import setAuthHeaders from './utils/setAuthHeader';
+import { loadUser } from './actions/auth';
+
+setAuthHeaders(localStorage.token);
+
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
     <Fragment>
       <Router>

@@ -3,19 +3,6 @@ const auth = require('../middleware/auth');
 const Keyboard = require('../models/Keyboard');
 const User = require('../models/User');
 
-// @route   /api/user
-// @info    Get user information
-// @access  Private
-router.get('/', auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user).select('-password');
-
-    return res.json(user);
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-});
-
 // @route   /api/user/cart
 // @info    Add items to user's cart
 // @access  Private

@@ -1,10 +1,25 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
 
 const router = require('express').Router();
+
+// @route   /api/auth
+// @info    Authenticate user
+// @access  Private
+router.post('/', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user).select('-password -_id -__v');
+
+    return res.json(user);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send({ error: err.message });
+  }
+});
 
 // @route   /api/auth/login
 // @info    Login user
