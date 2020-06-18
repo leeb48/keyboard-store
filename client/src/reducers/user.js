@@ -5,6 +5,7 @@ import {
   LOGIN_SUCCESS,
   LOAD_USER,
   LOG_OUT,
+  GET_CART,
 } from '../actions/types';
 
 const initialState = {
@@ -29,6 +30,12 @@ export default function (state = initialState, action) {
         ...payload,
         isAuthenticated: true,
         loading: false,
+      };
+
+    case GET_CART:
+      return {
+        ...state,
+        cart: payload,
       };
 
     case REGISTER_FAIL:

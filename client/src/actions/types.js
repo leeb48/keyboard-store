@@ -8,3 +8,6 @@ export const LOG_OUT = 'LOG_OUT';
 export const LOAD_USER = 'LOAD_USER';
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const POST_PRODUCT = 'POST_PRODUCT';
+export const GET_CART = 'GET_CART';
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';

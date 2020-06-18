@@ -14,10 +14,11 @@ router.put('/cart', auth, async (req, res) => {
     const { keyboardId } = req.body;
 
     // Check to see if the item is already in the user's cart
-    const item = user.cart.find((id) => id.equals(keyboardId));
-
-    if (item) {
-      return res.status(500).send({ error: 'Item Already In Cart' });
+    if (user.cart.length > 0) {
+      const item = user.cart.find((id) => id.equals(keyboardId));
+      if (item) {
+        return res.status(500).send({ error: 'Item Already In Cart' });
+      }
     }
 
     user.cart.unshift(keyboardId);
@@ -27,6 +28,7 @@ router.put('/cart', auth, async (req, res) => {
     return res.json(user.cart);
   } catch (err) {
     res.status(500).send({ error: err.message });
+    console.log(err.message);
   }
 });
 

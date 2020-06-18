@@ -15,6 +15,7 @@ import setAuthHeaders from './utils/setAuthHeader';
 import { loadUser } from './actions/auth';
 import SellForm from './components/forms/SellForm';
 import PrivateRoute from './components/routing/PrivateRoute';
+import DisplayCart from './components/cart/DisplayCart';
 
 setAuthHeaders(localStorage.token);
 
@@ -69,6 +70,7 @@ function App() {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <PrivateRoute exact path="/sell" component={SellForm} />
+          <PrivateRoute exact path="/cart" component={DisplayCart} />
         </Switch>
         <Alert />
       </Router>

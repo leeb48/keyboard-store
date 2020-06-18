@@ -1,11 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addToCart } from '../../actions/user';
 
-const ProductItem = ({
-  keyboard: { img, name, description, price, inStock, _id },
-  addToCart,
+const CartItem = ({
+  item: { img, name, description, price, inStock, _id },
 }) => {
   return (
     <div className="card shop-card">
@@ -27,11 +24,8 @@ const ProductItem = ({
             <Fragment>
               <p className="is-size-5 price">{price}</p>
 
-              <button
-                onClick={() => addToCart(_id)}
-                className="button is-info is-rounded"
-              >
-                Add To Cart
+              <button className="button is-danger is-rounded">
+                Remove From Cart
               </button>
             </Fragment>
           ) : (
@@ -43,6 +37,6 @@ const ProductItem = ({
   );
 };
 
-ProductItem.propTypes = {};
+CartItem.propTypes = {};
 
-export default connect(null, { addToCart })(ProductItem);
+export default CartItem;
