@@ -13,6 +13,8 @@ import Login from './components/forms/Login';
 import store from './store';
 import setAuthHeaders from './utils/setAuthHeader';
 import { loadUser } from './actions/auth';
+import SellForm from './components/forms/SellForm';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 setAuthHeaders(localStorage.token);
 
@@ -30,7 +32,11 @@ function App() {
             exact
             path="/"
             render={() => (
-              <ProductDisplay title="Featured Items" titleColor="info" />
+              <ProductDisplay
+                title="Featured Items"
+                productType="featured"
+                titleColor="info"
+              />
             )}
           />
           <Route
@@ -42,18 +48,27 @@ function App() {
             exact
             path="/incoming"
             render={() => (
-              <ProductDisplay title="Incoming Stock" titleColor="dark" />
+              <ProductDisplay
+                title="Incoming Stock"
+                productType="incoming"
+                titleColor="dark"
+              />
             )}
           />
           <Route
             exact
             path="/new-arrival"
             render={() => (
-              <ProductDisplay title="New Arrival" titleColor="success" />
+              <ProductDisplay
+                title="New Arrival"
+                productType="new-arrival"
+                titleColor="success"
+              />
             )}
           />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <PrivateRoute exact path="/sell" component={SellForm} />
         </Switch>
         <Alert />
       </Router>

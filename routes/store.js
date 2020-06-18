@@ -7,7 +7,14 @@ const Keyboard = require('../models/Keyboard');
 // @access  Private
 router.post('/sellkeyboard', auth, async (req, res) => {
   try {
-    const { name, img, description, price, inStock, featuredItem } = req.body;
+    const {
+      name,
+      img,
+      description,
+      price,
+      inStock = true,
+      featuredItem = false,
+    } = req.body;
 
     const newKeyboard = new Keyboard({
       user: req.user,
@@ -24,6 +31,7 @@ router.post('/sellkeyboard', auth, async (req, res) => {
     return res.json(newKeyboard);
   } catch (err) {
     res.status(500).send({ error: err.message });
+    console.log(err.message);
   }
 });
 
@@ -106,6 +114,21 @@ router.get('/incoming', async (req, res) => {
     const incoming = await Keyboard.find({ inStock: false });
 
     return res.json(incoming);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
+// @route   GET /api/store/new-arrival
+// @info    Get newly arrived stock
+// @access  Public
+router.get('/new-arrival', async (req, res) => {
+  try {
+    const newArrival = await Keyboard.find({ inStock: true }).sort({
+      date: -1,
+    });
+
+    return res.json(newArrival);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }

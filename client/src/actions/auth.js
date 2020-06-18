@@ -4,6 +4,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOAD_USER,
+  LOG_OUT,
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alert';
@@ -83,4 +84,12 @@ export const registerUser = (formData, history) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
   }
+};
+
+export const logoutUser = () => (dispatch) => {
+  dispatch({
+    type: LOG_OUT,
+  });
+
+  dispatch(setAlert('Logout Successful', 'success'));
 };

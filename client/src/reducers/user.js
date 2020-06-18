@@ -4,6 +4,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOAD_USER,
+  LOG_OUT,
 } from '../actions/types';
 
 const initialState = {
@@ -32,11 +33,15 @@ export default function (state = initialState, action) {
 
     case REGISTER_FAIL:
     case LOGIN_FAIL:
+    case LOG_OUT:
       localStorage.setItem('token', null);
       return {
         ...state,
+        username: null,
+        favoriteSwitchType: null,
         token: null,
         isAuthenticated: false,
+        cart: [],
         loading: false,
       };
 

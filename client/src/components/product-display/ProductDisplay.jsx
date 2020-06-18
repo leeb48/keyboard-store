@@ -1,123 +1,42 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SearchBar from '../search/SearchBar';
+import { connect } from 'react-redux';
+import { fetchProduct } from '../../actions/store';
+import ProductItem from './ProductItem';
 
-const ProductDisplay = ({ title, titleColor }) => {
+const ProductDisplay = ({
+  title,
+  titleColor,
+  fetchProduct,
+  productType = '',
+  store: { keyboards, loading },
+}) => {
+  useEffect(() => {
+    fetchProduct(productType);
+  }, [productType]);
+
   return (
     <section className="section">
       <SearchBar title={title} titleColor={titleColor} />
       <div className="shop">
-        <div className="card shop-card">
-          <div className="card-image">
-            <figure className="image">
-              <img src="img/kb1.jpg" alt="keyboard" />
-            </figure>
-          </div>
-          <div className="card-content">
-            <div className="media">
-              <div className="media-content">
-                <p className="title is-6">
-                  Obinslab Anne Pro 2 White RGB LED 60% Double Shot PBT
-                  Mechanical Keyboard
-                </p>
-              </div>
-            </div>
-            <div className="content">
-              <p className="is-size-5 price">$99</p>
-              <button className="button is-info is-rounded">Add To Cart</button>
-            </div>
-          </div>
-        </div>
-
-        <div className="card shop-card">
-          <div className="card-image">
-            <figure className="image">
-              <img src="img/kb1.jpg" alt="keyboard" />
-            </figure>
-          </div>
-          <div className="card-content">
-            <div className="media">
-              <div className="media-content">
-                <p className="title is-6">
-                  Obinslab Anne Pro 2 White RGB LED 60% Double Shot PBT
-                  Mechanical Keyboard
-                </p>
-              </div>
-            </div>
-            <div className="content">
-              <p className="is-size-5">$99</p>
-            </div>
-            <button className="button is-info is-rounded">Add To Cart</button>
-          </div>
-        </div>
-        <div className="card shop-card">
-          <div className="card-image">
-            <figure className="image">
-              <img src="img/kb1.jpg" alt="keyboard" />
-            </figure>
-          </div>
-          <div className="card-content">
-            <div className="media">
-              <div className="media-content">
-                <p className="title is-6">
-                  Obinslab Anne Pro 2 White RGB LED 60% Double Shot PBT
-                  Mechanical Keyboard
-                </p>
-              </div>
-            </div>
-            <div className="content">
-              <p className="is-size-5">$99</p>
-              <button className="button is-info is-rounded">Add To Cart</button>
-            </div>
-          </div>
-        </div>
-        <div className="card shop-card">
-          <div className="card-image">
-            <figure className="image">
-              <img src="img/kb1.jpg" alt="keyboard" />
-            </figure>
-          </div>
-          <div className="card-content">
-            <div className="media">
-              <div className="media-content">
-                <p className="title is-6">
-                  Obinslab Anne Pro 2 White RGB LED 60% Double Shot PBT
-                  Mechanical Keyboard
-                </p>
-              </div>
-            </div>
-            <div className="content">
-              <p className="is-size-5">$99</p>
-              <button className="button is-info is-rounded">Add To Cart</button>
-            </div>
-          </div>
-        </div>
-        <div className="card shop-card">
-          <div className="card-image">
-            <figure className="image">
-              <img src="img/kb1.jpg" alt="keyboard" />
-            </figure>
-          </div>
-          <div className="card-content">
-            <div className="media">
-              <div className="media-content">
-                <p className="title is-6">
-                  Obinslab Anne Pro 2 White RGB LED 60% Double Shot PBT
-                  Mechanical Keyboard
-                </p>
-              </div>
-            </div>
-            <div className="content">
-              <p className="is-size-5">$99</p>
-              <button className="button is-info is-rounded">Add To Cart</button>
-            </div>
-          </div>
-        </div>
+        {!loading && keyboards.length > 0
+          ? keyboards.map((keyboard) => (
+              <ProductItem key={keyboard._id} keyboard={keyboard} />
+            ))
+          : null}
       </div>
     </section>
   );
 };
 
-ProductDisplay.propTypes = {};
+ProductDisplay.propTypes = {
+  store: PropTypes.object.isRequired,
+  fetchProduct: PropTypes.func.isRequired,
+};
 
-export default ProductDisplay;
+const mapStateToProps = (state) => ({
+  store: state.store,
+});
+
+export default connect(mapStateToProps, { fetchProduct })(ProductDisplay);

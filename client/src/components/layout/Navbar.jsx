@@ -1,11 +1,40 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { logoutUser } from '../../actions/auth';
 
-const Navbar = ({ user: { isAuthenticated } }) => {
+const Navbar = ({ user: { isAuthenticated }, logoutUser }) => {
+  const authButtons = (
+    <div>
+      <Link className="button is-info" to="/cart">
+        <i
+          // TODO: Causes error when icon is used
+          // className="fas fa-shopping-cart"
+          style={{ marginRight: '.5rem' }}
+        ></i>
+        Cart
+      </Link>
+
+      <Link to="/" onClick={logoutUser} className="button is-danger">
+        Log Out
+      </Link>
+    </div>
+  );
+
+  const guestButtons = (
+    <div>
+      <Link className="button is-primary" to="/register">
+        <strong>Sign up</strong>
+      </Link>
+      <Link className="button is-link" to="/login">
+        Log in
+      </Link>
+    </div>
+  );
+
   return (
-    <Fragment>
+    <div>
       <section className="hero is-primary">
         <div className="hero-body">
           <div className="container">
@@ -58,43 +87,23 @@ const Navbar = ({ user: { isAuthenticated } }) => {
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                {isAuthenticated ? (
-                  <Fragment>
-                    <Link className="button is-info" to="/cart">
-                      <i
-                        className="fas fa-shopping-cart"
-                        style={{ marginRight: '.5rem' }}
-                      ></i>
-                      Cart
-                    </Link>
-
-                    <a className="button is-danger">Log Out</a>
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <Link className="button is-primary" to="/register">
-                      <strong>Sign up</strong>
-                    </Link>
-                    <Link className="button is-link" to="/login">
-                      Log in
-                    </Link>
-                  </Fragment>
-                )}
+                {isAuthenticated ? authButtons : guestButtons}
               </div>
             </div>
           </div>
         </div>
       </nav>
-    </Fragment>
+    </div>
   );
 };
 
 Navbar.propTypes = {
   user: PropTypes.object.isRequired,
+  logoutUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { logoutUser })(Navbar);
