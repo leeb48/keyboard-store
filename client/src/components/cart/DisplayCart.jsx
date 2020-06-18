@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { getCart } from '../../actions/user';
 import CartItem from './CartItem';
 
-const DisplayCart = ({ user: { cart }, getCart }) => {
+const DisplayCart = ({ user: { cart, loading }, getCart }) => {
   useEffect(() => {
     getCart();
   }, []);
 
-  const display = cart.map((item) => <CartItem item={item} id={item._id} />);
+  const display = cart.map((item) => <CartItem item={item} key={item._id} />);
 
   return (
     <section className="section">

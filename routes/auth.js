@@ -12,7 +12,9 @@ const router = require('express').Router();
 // @access  Private
 router.post('/', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user).select('-password -_id -__v');
+    const user = await User.findById(req.user).select(
+      '-password -_id -__v -cart'
+    );
 
     return res.json(user);
   } catch (err) {

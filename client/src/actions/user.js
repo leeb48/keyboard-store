@@ -27,9 +27,24 @@ export const addToCart = (keyboardId) => async (dispatch) => {
       keyboardId: keyboardId,
     };
 
-    await axios.put('/api/user/cart', data, config);
+    const response = await axios.put('/api/user/cart', data, config);
 
-    dispatch(setAlert('Keyboard Added to Cart', 'success'));
+    dispatch(setAlert(response.data, 'success'));
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+export const removeFromCart = (keyboardId) => async (dispatch) => {
+  try {
+    const response = await axios.delete(`/api/user/cart/${keyboardId}`);
+
+    dispatch({
+      type: REMOVE_FROM_CART,
+      payload: keyboardId,
+    });
+
+    dispatch(setAlert(response.data, 'success'));
   } catch (err) {
     console.log(err.message);
   }

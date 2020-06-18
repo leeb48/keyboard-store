@@ -25,7 +25,7 @@ router.put('/cart', auth, async (req, res) => {
 
     await user.save();
 
-    return res.json(user.cart);
+    return res.json('Item Added');
   } catch (err) {
     res.status(500).send({ error: err.message });
     console.log(err.message);
@@ -39,7 +39,7 @@ router.delete('/cart/:id', auth, async (req, res) => {
   try {
     const { id } = req.params;
 
-    const user = await User.findById(req.user);
+    let user = await User.findById(req.user);
 
     user.cart = user.cart.filter(
       (keyboardId) => id.toString() !== keyboardId.toString()
@@ -47,9 +47,10 @@ router.delete('/cart/:id', auth, async (req, res) => {
 
     await user.save();
 
-    return res.json(user.cart);
+    return res.status(200).json('Item Removed');
   } catch (err) {
     res.status(500).send({ error: err.message });
+    console.log(err.message);
   }
 });
 

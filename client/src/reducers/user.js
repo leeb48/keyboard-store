@@ -6,6 +6,8 @@ import {
   LOAD_USER,
   LOG_OUT,
   GET_CART,
+  REMOVE_FROM_CART,
+  ADD_TO_CART,
 } from '../actions/types';
 
 const initialState = {
@@ -36,6 +38,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         cart: payload,
+      };
+
+    case REMOVE_FROM_CART:
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item._id !== payload),
       };
 
     case REGISTER_FAIL:

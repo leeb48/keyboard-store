@@ -74,7 +74,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route   /api/store/search
+// @route   /api/store/search/:searchTerm
 // @info    Search for keyboard by name
 // @access  Public
 router.get('/search/:searchTerm', async (req, res) => {

@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { removeFromCart } from '../../actions/user';
 
 const CartItem = ({
   item: { img, name, description, price, inStock, _id },
+  removeFromCart,
 }) => {
   return (
     <div className="card shop-card">
@@ -24,7 +27,10 @@ const CartItem = ({
             <Fragment>
               <p className="is-size-5 price">{price}</p>
 
-              <button className="button is-danger is-rounded">
+              <button
+                onClick={() => removeFromCart(_id)}
+                className="button is-danger is-rounded"
+              >
                 Remove From Cart
               </button>
             </Fragment>
@@ -39,4 +45,4 @@ const CartItem = ({
 
 CartItem.propTypes = {};
 
-export default CartItem;
+export default connect(null, { removeFromCart })(CartItem);

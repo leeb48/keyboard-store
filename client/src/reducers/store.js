@@ -1,4 +1,4 @@
-import { GET_PRODUCT, POST_PRODUCT } from '../actions/types';
+import { GET_PRODUCT, POST_PRODUCT, SEARCH_PRODUCT } from '../actions/types';
 
 const initialState = {
   keyboards: [],
@@ -11,6 +11,7 @@ export default function (state = initialState, action) {
   switch (type) {
     case GET_PRODUCT:
     case POST_PRODUCT:
+    case SEARCH_PRODUCT:
       return {
         ...state,
         keyboards: payload,
